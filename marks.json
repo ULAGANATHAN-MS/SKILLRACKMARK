@@ -1,0 +1,21 @@
+{
+    "12345": {
+      "Math": 90,
+      "English": 85,
+      "Science": 92,
+      "History": 78
+    },
+    "67890": {
+      "Math": 88,
+      "English": 76,
+      "Science": 94,
+      "History": 80
+    },
+    "54321": {
+      "Math": 95,
+      "English": 89,
+      "Science": 91,
+      "History": 82
+    }
+  }
+  
