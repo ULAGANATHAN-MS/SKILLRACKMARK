@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marks Display</title>
+</head>
+<body>
+
+  <h2>Enter Register Number:</h2>
+  <input type="text" id="registerNumberInput" placeholder="Enter Register Number">
+  <button onclick="displayMarks()">Show Marks</button>
+
+  <div id="marksDisplay"></div>
+
+  <script>
+    function loadJSON(callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.overrideMimeType("application/json");
+      xhr.open('GET', 'marks_data.json', true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == "200") {
+          callback(xhr.responseText);
+        }
+      };
+      xhr.send(null);
+    }
+
+    function displayMarks() {
+      var registerNumber = document.getElementById("registerNumberInput").value;
+      var marksDisplayElement = document.getElementById("marksDisplay");
+
+      loadJSON(function(response) {
+        var marksData = JSON.parse(response);
+
+        // Check if the entered register number exists in the data
+        if (marksData.hasOwnProperty(registerNumber)) {
+          var marks = marksData[registerNumber];
+          var html = "<h2>Marks for Register Number: " + registerNumber + "</h2><ul>";
+
+          // Display subject-wise marks
+          for (var subject in marks) {
+            html += "<li>" + subject + ": " + marks[subject] + "</li>";
+          }
+
+          html += "</ul>";
+          marksDisplayElement.innerHTML = html;
+        } else {
+          marksDisplayElement.innerHTML = "<p>Register number not found.</p>";
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
